@@ -39,3 +39,10 @@ def atualizar_tarefa(tarefa_id: int, tarefa_update: TarefaUpdate):
         tarefa_existente[key] = value
         
     return tarefa_existente
+
+@app.delete("/tarefas/{tarefa_id}")
+def deletar_tarefa(tarefa_id: int):
+    if tarefa_id not in tarefas:
+        raise HTTPException(status_code=404, detail="Tarefa não encontrada")
+    del tarefas[tarefa_id]
+    return {"mensagem": "Tarefa deletada com sucesso"}
